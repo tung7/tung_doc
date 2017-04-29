@@ -12,12 +12,16 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tdoc_config")
-public class DocConfig {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class DocConfig extends IdEntity{
+    /**
+     * 配置项的key
+     */
     @Column(name = "ckey", unique = true)
     private String key;
+
+    /**
+     * 配置项的value
+     */
     @Column(name = "cvalue", length = 1000)
     private String value;
 
@@ -29,15 +33,6 @@ public class DocConfig {
     public DocConfig(String key, String value) {
         this.key = key;
         this.value = value;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public DocConfig setId(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getKey() {
