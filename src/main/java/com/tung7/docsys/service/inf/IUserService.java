@@ -1,4 +1,4 @@
-package com.tung7.docsys.repositories;
+package com.tung7.docsys.service.inf;
 
 import com.tung7.docsys.entity.DocUser;
 
@@ -7,9 +7,12 @@ import com.tung7.docsys.entity.DocUser;
  *
  * @author Tung
  * @version 1.0
- * @date 2017/4/29.
+ * @date 2017/4/30.
  * @update
  */
-public interface UserRepository extends BaseRepository<DocUser, Long> {
+
+public interface IUserService {
     DocUser findByUsername(String username);
+
+    DocUser save(DocUser user);
 }

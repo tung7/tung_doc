@@ -22,14 +22,17 @@ public class DocUser extends IdEntity {
     /**
      * 用户登录帐号
      */
-    @Column(name = "login_name")
-    private String loginName;
+    @Column(name = "username", unique = true)
+    private String username;
 
     /**
      * 用户昵称
      */
     @Column(name = "nickname")
     private String nickname;
+
+    @Column(name = "email")
+    private String email;
 
     /**
      * 用户登录密码，加密。
@@ -38,12 +41,18 @@ public class DocUser extends IdEntity {
     private String password;
 
     /**
+     * 密码盐值
+     */
+    @Column(name = "salt")
+    private String salt;
+
+    /**
      * 用户头像，地址
      */
     @Column(name = "photo", length = 511)
     private String photo;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "tdoc_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     @Fetch(FetchMode.SUBSELECT) // Fecth策略定义
     @OrderBy("id ASC") // 集合按id排序
@@ -51,13 +60,21 @@ public class DocUser extends IdEntity {
     private Set<DocRole> roleSet = new HashSet<DocRole>();
 
 
-
-    public String getLoginName() {
-        return loginName;
+    public String getEmail() {
+        return email;
     }
 
-    public DocUser setLoginName(String loginName) {
-        this.loginName = loginName;
+    public DocUser setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public DocUser setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -86,6 +103,24 @@ public class DocUser extends IdEntity {
     public DocUser setPhoto(String photo) {
         this.photo = photo;
         return this;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public DocUser setSalt(String salt) {
+        this.salt = salt;
+        return this;
+    }
+
+    /**
+     * salt下 必需有这个方法。。。。。。。日了狗。。。
+     * @return
+     */
+    public String getCredentialsSalt() {
+        System.out.println("getCredentialsSalt");
+        return salt;
     }
 
     public Set<DocRole> getRoleSet() {

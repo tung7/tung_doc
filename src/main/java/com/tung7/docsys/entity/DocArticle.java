@@ -21,6 +21,12 @@ import java.util.Set;
 public class DocArticle extends IdEntity {
 
     /**
+     * 匿名用户访问文章时的密码。
+     */
+    @Column(name = "password")
+    private String password;
+
+    /**
      * 当前文章对应的head版本号
      */
     @Column(name = "head_version", length = 127)
@@ -41,6 +47,15 @@ public class DocArticle extends IdEntity {
     @JoinColumn(name = "creator_id")
     private DocUser creator;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public DocArticle setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     /**
      * 文章下的版本
      */
@@ -54,6 +69,7 @@ public class DocArticle extends IdEntity {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private DocCategory category;
+
 
     public String getHeadVersion() {
         return headVersion;

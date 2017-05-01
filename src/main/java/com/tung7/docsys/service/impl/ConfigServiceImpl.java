@@ -29,6 +29,7 @@ public class ConfigServiceImpl implements IConfigService {
         return configRepository.findByKey(key);
     }
 
+    @Transactional(readOnly = false)
     public DocConfig save(DocConfig docConfig) {
         return configRepository.save(docConfig);
     }

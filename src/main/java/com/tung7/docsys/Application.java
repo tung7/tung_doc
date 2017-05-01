@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @update
  */
 @SpringBootApplication
-@ServletComponentScan
+//@ServletComponentScan
 public class Application {
     public static void main(String[] args) {
         new SpringApplicationBuilder().sources(Application.class).bannerMode(Banner.Mode.OFF).run(args);
