@@ -4,12 +4,10 @@ import com.tung7.docsys.entity.DocUser;
 import com.tung7.docsys.repositories.UserRepository;
 import com.tung7.docsys.service.inf.IUserService;
 import com.tung7.docsys.shiro.DocShiroRealm;
-import com.tung7.docsys.utils.Digests;
+import com.tung7.docsys.support.utils.Digests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.Table;
 
 /**
  * TODO Fill The Description!

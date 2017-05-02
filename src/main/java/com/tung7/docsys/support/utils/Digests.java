@@ -1,6 +1,4 @@
-package com.tung7.docsys.utils;
-
-import org.apache.tomcat.util.codec.DecoderException;
+package com.tung7.docsys.support.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

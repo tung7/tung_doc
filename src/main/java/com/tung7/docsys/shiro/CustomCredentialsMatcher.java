@@ -1,6 +1,6 @@
 package com.tung7.docsys.shiro;
 
-import com.tung7.docsys.utils.Digests;
+import com.tung7.docsys.support.utils.Digests;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SaltedAuthenticationInfo;

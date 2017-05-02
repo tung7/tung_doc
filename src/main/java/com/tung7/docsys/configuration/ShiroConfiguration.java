@@ -70,7 +70,6 @@ public class ShiroConfiguration {
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterChainDefinitionMap.put("/assets/**", "anon");
-        filterChainDefinitionMap.put("/user/save", "anon");
         filterChainDefinitionMap.put("/**", "authc");
 
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
@@ -90,9 +89,7 @@ public class ShiroConfiguration {
     public SecurityManager securityManager(DocShiroRealm docShiroRealm){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
         //设置realm.
-        System.out.println("==========" + docShiroRealm);
         securityManager.setRealm(docShiroRealm);
-
         //注入缓存管理器;
 //        securityManager.setCacheManager(ehCacheManager());//这个如果执行多次，也是同样的一个对象;
         return securityManager;
