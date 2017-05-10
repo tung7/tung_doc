@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TungDoc</title>
+	<link rel="stylesheet" href="/assets/css/semantic.min.css" />
+    <link rel="stylesheet" href="/admin/assets/editormd/css/editormd.min.css" />
+	<link rel="stylesheet" href="/admin/assets/editormd/css/monokai.css" />
+	<link rel="stylesheet" href="/admin/assets/css/style.css" />
+	<link rel="stylesheet" href="/admin/assets/editormd/css/style.css" />
+    <style>
+        .admin .main article.article{
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="admin" style="overflow-x: auto !important;">
+
+<!-- Sidebar Menu start-->
+<section class="nav ui vertical inverted sticky menu left" id="nav"></section>
+<!-- Sidebar Menu end -->
+
+
+<!--  main start -->
+<section class="main pusher" id="main">
+  <!-- main header start -->
+	<div class="ui menu borderless header  fixed" id="header">
+	    <div class="ui container" style="margin-left: 30px !important;">
+	      <div class="ui simple dropdown item">
+	        Operation <i class="dropdown icon"></i>
+	        <div class="menu">
+	          <a class="item" href="#">编辑</a>
+	          <a class="item" href="#">设置</a>
+	          <div class="divider"></div>
+	          <div class="header" style="margin-right:3em;">历史版本</div>
+	          <div class="item" >
+	            <i class="dropdown icon" ></i>
+	            版本对比
+	            <div class="menu">
+	              <a class="item" href="#">2017-4-28 12:35</a>
+	              <a class="item" href="#">2017-4-27 11:43</a>
+	              <a class="item" href="#">2017-4-26 19:06</a>
+	              <a class="item" href="#">2017-4-25 13:30</a>
+	            </div>
+	          </div>
+	          <div class="item">
+	            <i class="dropdown icon"></i>
+	            历史查看
+	            <div class="menu">
+	              <a class="item" href="#">2017-4-28 12:35</a>
+	              <a class="item" href="#">2017-4-27 11:43</a>
+	              <a class="item" href="#">2017-4-26 19:06</a>
+	              <a class="item" href="#">2017-4-25 13:30</a>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <a href="#" class="item">Log out</a>
+	    </div>
+	</div>
+  <!-- main header end -->
+
+  <!-- main article start -->
+	<article class="article" style="" >
+	    <div id="article-area" class="article-content">
+            <div id="editormd" class="editormd" style="margin-top:40px">
+                <textarea style="display:none;" class="editormd-markdown-textarea" name="editormd-markdown-doc"></textarea>
+                <textarea style="display:none;" class="editormd-html-textarea" name="editormd-html-code"></textarea>
+            </div>
+            <button id="sub">submit</button>
+        </div>
+	</article>
+	<!-- main article end -->
+</section>
+<!--  main end -->
+
+
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/semantic.min.js"></script>
+<script type="text/javascript" src="/admin/assets/editormd/editormd.min.js"></script>
+<script type="text/javascript" src="/admin/assets/js/common.js"></script>
+<script data-th-inline="JavaScript">
+$(function() {
+    window.navRoot = /*[[${navRoot}]]*/ null;
+    window.editor = editormd("editormd", {
+        path : "/admin/assets/editormd/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
+        height: "690px",
+        width: "100%",
+//         theme: "dark",
+        saveHTMLToTextarea : true,
+//         editorTheme: "monokai",
+//         previewTheme: "dark",
+        tocm: true,
+        tocContainer: "",
+        tocDropdown: false,
+        imageUpload    : true,
+        imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL : "./php/upload.php",
+        toolbarIcons : function() {
+            return ["undo", "redo", "|", "bold", "del", "italic", "quote", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image", "code", "preformatted-text", "table", "|", "goto-line", "watch", "preview", "fullscreen", "search"]
+        },
+        flowChart            : true,          // flowChart.js only support IE9+
+        sequenceDiagram      : true,
+        taskList             : true,
+        lineNumbers          : false
+    });
+    console.log(editor);
+
+
+
+    /*
+     // or
+     var editor = editormd({
+     id   : "editormd",
+     path : "../lib/"
+     });
+     */
+    $("#sub").on("click", function() {
+        console.log(editor.getMarkdown());
+        console.log(editor.getHTML());
+    })
+
+});
+
+</script>
+<script src="/admin/assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TungDoc</title>
+	<link rel="stylesheet" href="/assets/css/semantic.min.css" />
+    <link rel="stylesheet" href="/admin/assets/datatable/dataTables.semanticui.min.css">
+    <link rel="stylesheet" href="/admin/assets/datatable/buttons/buttons.semanticui.min.css">
+    <link rel="stylesheet" href="/admin/assets/datatable/select/select.semanticui.min.css">
+    <link rel="stylesheet" href="/admin/assets/datatable/fixedheader/fixedHeader.semanticui.min.css">
+	<link rel="stylesheet" href="/admin/assets/css/style.css" />
+</head>
+<body class="admin" style="overflow-x: auto !important;">
+
+<!-- Sidebar Menu start-->
+<section class="nav ui vertical inverted sticky menu left" id="nav"></section>
+<!-- Sidebar Menu end -->
+
+
+<!--  main start -->
+<section class="main pusher" id="main">
+  <!-- main header start -->
+	<div class="ui menu borderless header fixed" id="header">
+	    <div class="ui container" style="margin-left: 30px !important;">
+	      <div class="ui simple dropdown item">
+	        Operation <i class="dropdown icon"></i>
+	        <div class="menu">
+	          <a class="item" href="#">编辑</a>
+	          <a class="item" href="#">设置</a>
+	          <div class="divider"></div>
+	          <div class="header" style="margin-right:3em;">历史版本</div>
+	          <div class="item" >
+	            <i class="dropdown icon" ></i>
+	            版本对比
+	            <div class="menu">
+	              <a class="item" href="#">2017-4-28 12:35</a>
+	              <a class="item" href="#">2017-4-27 11:43</a>
+	              <a class="item" href="#">2017-4-26 19:06</a>
+	              <a class="item" href="#">2017-4-25 13:30</a>
+	            </div>
+	          </div>
+	          <div class="item">
+	            <i class="dropdown icon"></i>
+	            历史查看
+	            <div class="menu">
+	              <a class="item" href="#">2017-4-28 12:35</a>
+	              <a class="item" href="#">2017-4-27 11:43</a>
+	              <a class="item" href="#">2017-4-26 19:06</a>
+	              <a class="item" href="#">2017-4-25 13:30</a>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <a href="#" class="item">Log out</a>
+	    </div>
+	</div>
+  <!-- main header end -->
+
+  <!-- main article start -->
+	<article class="article" style="" >
+		<div class="article-header">
+			<h1 class="article-title">权限管理</h1>
+		</div>
+
+	    <div id="article-area" class="article-content">
+            <table id="role_dt" class="ui celled table" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th width="10%">ID</th>
+                    <th>角色名</th>
+                    <th>描述</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+	</article>
+	<!-- main article end -->
+</section>
+<!--  main end -->
+
+<!-- modals start -->
+<div class="ui long modal add-modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Profile Picture
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui equal width form">
+                <div class="fields">
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" placeholder="Username">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label>First name</label>
+                        <input type="text" placeholder="First Name">
+                    </div>
+                    <div class="field">
+                        <label>Middle name</label>
+                        <input type="text" placeholder="Middle Name">
+                    </div>
+                    <div class="field">
+                        <label>Last name</label>
+                        <input type="text" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label>First name</label>
+                        <input type="text" placeholder="First Name">
+                    </div>
+                    <div class="field">
+                        <label>Middle name</label>
+                        <input type="text" placeholder="Middle Name">
+                    </div>
+                    <div class="field">
+                        <label>Last name</label>
+                        <input type="text" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="field">
+                        <label>First name</label>
+                        <input type="text" placeholder="First Name">
+                    </div>
+                    <div class="field">
+                        <label>Middle name</label>
+                        <input type="text" placeholder="Middle Name">
+                    </div>
+                    <div class="field">
+                        <label>Last name</label>
+                        <input type="text" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            Cancel
+        </div>
+        <div class="ui positive right labeled icon button">
+            OK
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+<!-- modals end -->
+
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/admin/assets/datatable/jquery.dataTables.min.js"></script>
+<script src="/admin/assets/datatable/dataTables.semanticui.min.js"></script>
+<script src="/admin/assets/datatable/buttons/dataTables.buttons.min.js"></script>
+<script src="/admin/assets/datatable/buttons/buttons.semanticui.min.js"></script>
+<script src="/admin/assets/datatable/buttons/buttons.colVis.min.js"></script>
+<script src="/admin/assets/datatable/select/dataTables.select.min.js"></script>
+<script src="/admin/assets/datatable/fixedheader/dataTables.fixedHeader.min.js"></script>
+<script src="/assets/js/semantic.min.js"></script>
+<script src="/admin/assets/js/common.js"></script>
+<script data-th-inline="JavaScript">
+$(function() {
+    window.navRoot = /*[[${navRoot}]]*/ null;
+    var table = createDT();
+});
+
+function createDT() {
+    return null;
+}
+</script>
+<script src="/admin/assets/js/script.js"></script>
+</body>
+</html>

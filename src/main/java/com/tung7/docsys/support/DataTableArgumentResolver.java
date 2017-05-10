@@ -4,8 +4,12 @@ import com.tung7.docsys.bean.vo.datatable.DataTable;
 import com.tung7.docsys.bean.vo.datatable.DataTableColumns;
 import com.tung7.docsys.bean.vo.datatable.DataTableOrder;
 import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebArgumentResolver;
+import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -23,8 +27,9 @@ import java.util.regex.Pattern;
  * @date 2017/5/3.
  * @update
  */
-public class DataTableArgumentResolver implements WebArgumentResolver {
-    @Override
+@Component
+public class DataTableArgumentResolver implements HandlerMethodArgumentResolver {
+//    @Override
     public Object resolveArgument(MethodParameter mp, NativeWebRequest webRequest) throws Exception {
         if(mp.getParameterType() != null && mp.getParameterType().equals(DataTable.class)){
             HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
@@ -42,7 +47,8 @@ public class DataTableArgumentResolver implements WebArgumentResolver {
             }
             return dataTable;
         }
-        return UNRESOLVED;
+//        return UNRESOLVED;
+        return null;
     }
 
     public void handleOthers(String key , String value, DataTable dataTable){
@@ -77,6 +83,7 @@ public class DataTableArgumentResolver implements WebArgumentResolver {
         /* column */
         p = Pattern.compile("columns\\[(\\d)+\\]\\[(\\w*)\\](\\[(\\w*)\\])?");
         m = p.matcher(key);
+
         if(m.matches()){
             int indx = Integer.valueOf(m.group(1));
             String str2 = m.group(2);
@@ -102,6 +109,31 @@ public class DataTableArgumentResolver implements WebArgumentResolver {
                 columns.add(col);
             }
         }
+
+        /*  */
+    }
+
+    @Override
+    public boolean supportsParameter(MethodParameter mp) {
+        return mp.getParameterType() != null && mp.getParameterType().equals(DataTable.class);
+    }
+
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+        DataTable dataTable = new DataTable();
+        Map<String, String[]> paramMap = request.getParameterMap();
+        for(Map.Entry<String, String[]> entry:paramMap.entrySet()){
+            String key = entry.getKey();
+            String value = entry.getValue()[0];
+            switch (key) {
+                case "draw" : dataTable.setDraw(Integer.valueOf(value)); break;
+                case "start" : dataTable.setStart(Integer.valueOf(value)); break;
+                case "length" : dataTable.setLength(Integer.valueOf(value)); break;
+                default: handleOthers(key, value, dataTable);break;
+            }
+        }
+        return dataTable;
     }
 }
 

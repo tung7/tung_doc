@@ -119,7 +119,6 @@ public class DocUser extends IdEntity {
      * @return
      */
     public String getCredentialsSalt() {
-        System.out.println("getCredentialsSalt");
         return salt;
     }
 

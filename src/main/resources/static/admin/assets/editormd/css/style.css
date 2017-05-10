@@ -1,0 +1,76 @@
+.editormd {
+    margin-top: 0 !important;
+}
+.editormd.editormd-fullscreen {
+    z-index: 9999;
+}
+.editormd audio, .editormd canvas, .editormd video {
+    display: inline-block;
+}
+
+.editormd img {
+    border: none;
+    vertical-align: middle;
+}
+
+.editormd ul, .editormd ol {
+    /*list-style: none;*/
+}
+
+.clear {
+    *zoom: 1;           /* for IE 6/7 */
+}
+
+.clear:before, .clear:after {
+    height: 0; 
+    content: "";
+    font-size: 0;
+    display: table;
+    line-height: 0;     /* for Opera */
+    visibility: hidden;
+}
+
+.clear:after {
+    clear: both;
+}
+
+
+.editormd li.L1,
+.editormd li.L3,
+.editormd li.L5,
+.editormd li.L7,
+.editormd li.L9{
+    background: none;
+}
+
+.editormd-html-preview ol.linenums li, .editormd-preview-container ol.linenums li {
+    border-left: 1px solid #ddd;
+    padding-left: 8px;
+}
+
+
+
+.editormd .btns {
+    padding-top: 0;
+}
+
+.editormd .btns button {
+    padding: 2px 8px;
+}
+
+
+.editormd .btns button, .btn {
+    padding: 8px 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    -webkit-transition: background 300ms ease-out;
+    transition: background 300ms ease-out;
+}
+
+.editormd .btns button:hover, .btn:hover {
+    background: #f6f6f6;
+}
+

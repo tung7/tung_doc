@@ -35,11 +35,14 @@ public class CustomCredentialsMatcher extends HashedCredentialsMatcher {
         return equals(tokenCredentials, accountCredentials.toString());
     }
 
-    //将传进来密码加密方法
+    //将传进来的密码进行加密
     private String encrypt(String data, String dbSalt) {
         String algorithName = getHashAlgorithmName();
         int iteration = getHashIterations();
-        byte[] encryptPassBytesToCompare = Digests.digest(data.getBytes(),algorithName, Digests.decodeHex(dbSalt), iteration);
+        byte[] encryptPassBytesToCompare = Digests.digest(data.getBytes(),
+                algorithName,
+                Digests.decodeHex(dbSalt),
+                iteration);
         return Digests.encodeHex(encryptPassBytesToCompare);
     }
 }

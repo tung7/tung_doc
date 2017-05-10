@@ -24,6 +24,9 @@ public class DocCategory extends IdEntity {
     @JoinColumn(name = "pid")
     private DocCategory parent;
 
+    @Column(name = "depth", length = 2)
+    private int depth;
+
     /**
      * 类别的名称
      */
@@ -48,7 +51,14 @@ public class DocCategory extends IdEntity {
     @JsonIgnore
     private Set<DocArticle> articlesSet = new HashSet<>();
 
+    public int getDepth() {
+        return depth;
+    }
 
+    public DocCategory setDepth(int depth) {
+        this.depth = depth;
+        return this;
+    }
 
     public Set<DocArticle> getArticlesSet() {
         return articlesSet;

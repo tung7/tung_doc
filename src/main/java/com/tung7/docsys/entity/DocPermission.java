@@ -33,7 +33,6 @@ public class DocPermission extends IdEntity{
     private String permission;
 
 
-
     @Column(name = "resource_type")
     @Enumerated(EnumType.STRING)
     private ResourceType resourceType;

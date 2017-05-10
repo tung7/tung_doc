@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TungDoc</title>
+	<link rel="stylesheet" href="assets/css/semantic.min.css" />
+	<link rel="stylesheet" href="admin/assets/css/style.css" />
+	
+	<link rel="stylesheet" href="assets/css/simditor.css" />
+</head>
+<body class="detail" style="overflow-x: auto !important;">
+
+<!-- Sidebar Menu start-->
+<section class="nav ui vertical inverted sticky menu left" id="nav">
+	 <div class="item">
+        <a href="/"><b>Tung Docs</b></a>
+        <i class="sidebar icon" id="side-hidden-btn"></i>
+      </div>
+      <a class="item" href="/introduction/getting-started.html">
+        <b>Getting Started</b>
+      </a>
+      <a class="item" href="/introduction/new.html">
+        <b>New in 2.2</b>
+      </a>
+      <div class="item">
+        <div class=" header">Globals</div>
+        <div class="menu">
+            <a class="item" href="/globals/reset.html">Reset </a>
+            <a class="item" href="/globals/site.html">Site </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="active  header">元素</div>
+        <div class="menu">
+            <a class="active item" href="/elements/button.html">按钮 </a>
+            <a class="item" href="/elements/container.html">Container </a>
+            <a class="item" href="/elements/divider.html">分隔条 </a>
+            <a class="item" href="/elements/flag.html">Flag </a>
+            <a class="item" href="/elements/header.html">标题 </a>
+            <a class="item" href="/elements/icon.html">图标 </a>
+            <a class="item" href="/elements/image.html">图片 </a>
+            <a class="item" href="/elements/input.html">输入框 </a>
+            <a class="item" href="/elements/label.html">标签 </a>
+            <a class="item" href="/elements/list.html">列表 </a>
+            <a class="item" href="/elements/loader.html">加载器 </a>
+            <a class="item" href="/elements/rail.html">Rail </a>
+            <a class="item" href="/elements/reveal.html">揭示 </a>
+            <a class="item" href="/elements/segment.html">分段 </a>
+            <a class="item" href="/elements/step.html">布置 </a>
+        </div>
+      </div>
+      <div class="item">
+        <div class="active  header">元素</div>
+        <div class="menu">
+            <a class="active item" href="/elements/button.html">按钮 </a>
+            <a class="item" href="/elements/container.html">Container </a>
+            <a class="item" href="/elements/divider.html">分隔条 </a>
+            <a class="item" href="/elements/flag.html">Flag </a>
+            <a class="item" href="/elements/header.html">标题 </a>
+            <a class="item" href="/elements/icon.html">图标 </a>
+            <a class="item" href="/elements/image.html">图片 </a>
+            <a class="item" href="/elements/input.html">输入框 </a>
+            <a class="item" href="/elements/label.html">标签 </a>
+            <a class="item" href="/elements/list.html">列表 </a>
+            <a class="item" href="/elements/loader.html">加载器 </a>
+            <a class="item" href="/elements/rail.html">Rail </a>
+            <a class="item" href="/elements/reveal.html">揭示 </a>
+            <a class="item" href="/elements/segment.html">分段 </a>
+            <a class="item" href="/elements/step.html">布置 </a>
+        </div>
+      </div>
+</section>
+<!-- Sidebar Menu end -->
+
+
+<!--  main start -->
+<section class="main pusher" id="main">
+  <!-- main header start -->
+	<div class="ui menu borderless header fixed" id="header">
+	    <div class="ui container" style="margin-left: 30px !important;">
+	      <a href="#" class="item">主页</a>
+	      <div class="ui simple dropdown item">
+	        操作 <i class="dropdown icon"></i>
+	        <div class="menu">
+	          <a class="item" href="#">编辑</a>
+	          <a class="item" href="#">设置</a>
+	          <div class="divider"></div>
+	          <div class="header" style="margin-right:3em;">历史版本</div>
+	          <div class="item" >
+	            <i class="dropdown icon" ></i>
+	            版本对比
+	            <div class="menu">
+	              <a class="item" href="#">2017-4-28 12:35</a>
+	              <a class="item" href="#">2017-4-27 11:43</a>
+	              <a class="item" href="#">2017-4-26 19:06</a>
+	              <a class="item" href="#">2017-4-25 13:30</a>
+	            </div>
+	          </div>
+	          <div class="item">
+	            <i class="dropdown icon"></i>
+	            历史查看
+	            <div class="menu">
+	              <a class="item" href="#">2017-4-28 12:35</a>
+	              <a class="item" href="#">2017-4-27 11:43</a>
+	              <a class="item" href="#">2017-4-26 19:06</a>
+	              <a class="item" href="#">2017-4-25 13:30</a>
+	            </div>
+	          </div>
+	          <div class="divider"></div>
+	          <div class="header" style="margin-right:3em;">系统功能</div>
+	          <a class="item" href="#">登出</a>
+	        </div>
+	      </div>
+	      <a href="#" class="item">退出</a>
+	    </div>
+	</div>
+  <!-- main header end -->
+
+  <!-- main article start -->
+	<article class="article simditor" style="">
+		<div class="article-header">
+			<h1 class="article-title">Java NIO</h1>
+		</div>
+		<textarea id="markdown-area" style="display:none">
+# 概述
+Java NIO能够替代标准Java IO API，有着与标准IO不同的工作方式（非阻塞 Non-blocking）。
+
+标准IO是基于字节流和字符流进行操作的，而NIO则是基于Channel和Buffer进行操作的。
+
+NIO是非阻塞的，当线程从Channel中去读数据到Buffer的时候，线程还是能够处理其他事情，等到数据被写入到Buffer的时候，线程依然能够继续处理这些数据。Buffer写入Channel的时候也是一样。
+
+
+NIO通过Selector监听多个Channel的事件（连接的打开，数据的到达等）。
+
+
+| 啊bbc  |   value   | 啊bbc |   value   |
+| ------ | --------- | ----- | ---------------------- |
+| asda   | asdaa     | 12312 | 7892131778921317789213 |
+| 12312  | 789213172 | asda  | asdaa     |
+| asda   | asdaa     | 12312 | 789213172 |
+| asda   | asdaa     | 12312 | 789213172 |
+
+
+# 核心部分
+1. Channels
+2. Buffers
+3. Selectors
+
+## Channel与Buffer
+Channel有点像流，可以与Buffer交换数据。
+
+
+```seq
+Channel->Buffer: 写入Buffer
+
+Buffer->Channel: 读取Buffer
+```
+
+
+常用的Channel实现类有：
+* FileChannel
+* DatagramChannel
+* SocketChannel
+* ServerSocketChannel
+
+这些Channel都对应着传统IO
+FileChannel对应文件IO。
+
+DatagramChannel对应UDP的IO，可以通过UDP读写网络数据。
+
+SocketChannel与ServerSocketChannel对应TCP的IO，SocketChannel能够通过TCP读写网络数据，而ServerSocketChannel，如同ServerSocket那样可以监听新进来的TCP连接，每新进来一个连接都会创建一个SocketChannel,这和ServerSocket与Socket很像。
+
+
+
+关键的Buffer实现类有：
+* ByteBuffer
+* CharBuffer
+* DoubleBuffer
+* FloatBuffer
+* IntBuffer
+* LongBuffer
+* ShortBuffer
+* MappedByteBuffer
+
+同样的，这都对应着基本类型的封装。其中MappedByteBuffer表示内存映射文件。
+
+## Selector
+Selector允许单线程监听多个Channel。如果程序打开了很多个Channel,同时各个Channel的流量很低，使用Selector就会很方便。
+
+![image_1bcfrlno21n501pil1ed5q5i1mse9.png-20.7kB][1]
+
+
+使用Selector的简单流程
+1. 向Selector注册Channel
+2. 调用select()方法，阻塞等待Channel的事件就绪
+3. select()方法返回
+
+
+
+# Channel
+类似于流，但是又有不同：
+* Channel的操作是双向的，既可以读取数据，又可以写入数据，而流则是单向的。
+* Channel可以异步读写
+* Channel的数据只能通过Buffer操作
+
+```java
+RandomAccessFile aFile = new RandomAccessFile("data/nio-data.txt", "rw");
+FileChannel inChannel = aFile.getChannel();
+//分配
+ByteBuffer buf = ByteBuffer.allocate(48);
+int bytesRead = 0；
+while (（bytesRead = inChannel.read(buf)) != -1) {
+    System.out.println("Read " + bytesRead);
+    buf.flip();
+    while(buf.hasRemaining()){
+        System.out.print((char) buf.get());
+    }
+    buf.clear()；
+}
+aFile.close();
+```
+
+# Buffer
+Buffer本质上就是一块可写可读的内存，NIO就是把这块内存封装成Buffer对象，并提供一组便捷的API。
+
+## Buffer的基本使用流程
+
+向buffer写入数据时，buffer会记录下写了多少数据。当需要读取数据的时候，要使用flip()方法，将buffer从写模式切换到读模式。在读模式下，可以读取之前写入的所有数据。
+
+在读取玩所有所有数据之后，需要清空缓存区，使其进入写模式。
+
+清空缓冲去有两种方法：
+1. clear()方法，会清空整个缓冲区
+2. compact()方法，只会清除已经读过的数据。
+
+compact清除已经读过的数据之后，未读过的数据将会移动到缓存区头部，之后写入的数据将会继续在之前未读取的数据之后写入。
+
+```flow
+st=>start: Start
+op1=>operation: 将数据写入Buffer实例
+op2=>operation: 调用Buffer实例的flip()方法，切换到读模式。
+op3=>operation: 从Buffer实例中读取数据
+op=>operation: 调用clear()方法或者compact()方法
+e=>end: end
+
+st->op1->op2->op3->e
+```
+
+
+
+基本演示代码如下：
+
+```java
+RandomAccessFile aFile = new RandomAccessFile("data/nio-data.txt", "rw");
+FileChannel inChannel = aFile.getChannel();
+//创建一个容量为48字节的字节缓存区
+ByteBuffer buf = ByteBuffer.allocate(48);
+int bytesRead = inChannel.read(buf); //将数据读取到缓冲区
+while (bytesRead != -1) {
+  buf.flip();  //转换为读模式
+  while(buf.hasRemaining()){ //每次读取一字节
+      System.out.print((char) buf.get());
+  }
+  buf.clear(); //清空缓冲区，进入写模式
+  bytesRead = inChannel.read(buf); // 继续将数据读取到缓冲区
+}
+aFile.close();
+```
+
+## Buffer的属性
+Buffer有三个重要是属性
+* capcacity
+* position
+* limit
+
+capacity指的是缓冲区的所能容纳的数据单元个数, ByteBuffer表示能写capacity个byte，LongBuffer表示能写capacity个long。
+
+position和limit取决于缓冲区是处于读模式还是写模式，如下图。
+
+![image_1bcg0m5vojsk1rna6ul8u3cf1g.png-17.9kB][2]
+
+
+在写模式中，position表示能写入下一个buffer单元的偏移量，limit实际上就是capacity了，表示能够写入的单元数量。可以注意到，position就是用来记录缓冲区已经写入的数据的数量的。
+
+在切换到读模式后，position就被重置成0，指向缓冲区的头部，limit就表示能够读取到的单元数量，也就是写模式下的position的值。
+
+
+## Buffer的读写
+### Buffer的读
+从Buffer读取数据有两种方式，
+1. 将Buffer的数据读取至Channel中
+2. 通过Buffer的get方法读取
+
+```java
+int s = inChannel.write(buf);
+byte aByte = buf.get();
+``` 
+get方法有很多overloading, 可以指定读取position，直接读取到数组等。
+
+### Buffer的写
+写入Buffer同样有两种方式
+1. 从Channel中获取数据写入。
+2. 通过Buffer的put方法写入。
+
+```java
+int r = inChannel.read(buf);
+byte aByte = buf.put(127);
+ ```
+put方法中，也可以指定position写入，可以写入一个数组等。
+
+
+### flip()
+flip方法会将buffer从写模式转换到读模式。position将被重置为0，limit将移动到原来写模式的position的偏移位置。
+
+### rewind()
+在读模式中，rewind()可以将position重新置为0，limit不变。 这表明，我们可以再次读一遍已经读过的内容。 
+
+### clear()与compact()
+在读模式中，一旦我们想进入写模式，可以执行clear方法或者compact方法。
+其中clear()会将position置为0，limit值为capacity。注意的是clear方法，并不是把buffer清空了，只是设置了position和limit，看起来像清空了而已。
+compact()会将未读取的数据拷贝到buffer起始处，然后position置于这些未读取数据的最后一个之后，limit会被设置为capacity。也就是说，compact()方法会‘保留’未读的数据。
+
+### mark()与reset()
+mark()用来标记position的位置，然后在执行一些操作后，能够通过reset()方法来使得position回到标记的位置。
+```java
+buffer.mark(); // mark the position
+// do something may move the position
+buffer.reset(); // set position back to mark
+```
+
+### equals()与compareTo()
+equals()用于检查两个Buffer是否相等，当`都`满足以下条件时，表示Buffer相等。
+1. Buffer的类型相同（byte,char,long）
+2. 剩余单元个数相等
+3. 剩余单元都相等
+
+可以看到，equals只是比较剩余的单元。
+
+compareTo()方法用于判断Buffer的大小。满足下面条件`之一`时，认为一个Buffer小于另外一个Buffer。
+1. 第一个不相等的单元小于另一个Buffer中对应的单元。
+2. 所有单元都相等，但是第一个Buffer的单元数量小于第二个Buffer的单元数量。
+
+
+
+
+# Scatter和Gather
+Scatter/Gather用于描述 
+
+
+    
+    
+
+
+
+》》 http://ifeve.com/buffers/
+http://tutorials.jenkov.com/java-nio/scatter-gather.html
+
+
+  [1]: http://static.zybuluo.com/tung7/nedu0dg5cockda1h1xd6k9bt/image_1bcfrlno21n501pil1ed5q5i1mse9.png
+  [2]: http://static.zybuluo.com/tung7/6vmux0kzc9g4kepj3xlwt76q/image_1bcg0m5vojsk1rna6ul8u3cf1g.png
+		</textarea>
+		
+	    <div id="article-area" class="article-content simditor-body">
+			
+        </div>
+
+	</article>	
+	<!-- main article end -->
+
+  <!-- main article_index tart -->
+	<section class="index" id="index" style="">
+		<div id="toc-wrp" class="toc-wrp">
+			<!-- <div class="title">目录</div> -->
+			<div id="toc" class=""></div>
+		</div>
+	</section>
+  <!-- main article_index end -->
+</section>
+<!--  main end -->
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/semantic.min.js"></script>
+<script src="assets/js/jquery-ui-1.9.1.custom.min.js"></script>
+<script src="assets/js/jquery.tocify.min.js"></script>
+<script src="assets/js/marked.min.js"></script>
+<link type="text/css" rel="stylesheet" href="http://note.tung7.com/content/highlight/styles/xcode.css">
+<!-- <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"> -->
+<!-- <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script> -->
+<script type="text/javascript" src="http://note.tung7.com/content/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+$(function() {
+	// https://github.com/chjj/marked   
+	// 查看editormd.js:3386 模仿自定义renderer
+	marked.setOptions({
+		renderer: new marked.Renderer(),
+		gfm: true,
+		tables: true,
+		breaks: true,
+		pedantic: false,
+		sanitize: true,
+		smartLists: true,
+		smartypants: true,
+		highlight: function (code) {
+	        return hljs.highlightAuto(code).value;
+	    }
+	});
+	var markdownDoc = $("#markdown-area").val();
+	$("#article-area").html(marked(markdownDoc));
+
+	$('#side-hidden-btn').on('click', function(){
+		console.log("side");
+		$("#nav").toggleClass("side-hidden");
+		$("#main").toggleClass("side-hidden");
+		$("#header").toggleClass("side-hidden");
+	});
+
+	// http://gregfranko.com/jquery.tocify.js/#OptionsAPI
+	$("#toc").tocify({
+		context:".article-content",selectors:"h1,h2,h3,h4,h5",theme:"none",extendPage:false,scrollTo:60
+	});
+
+ // $('pre').each(function(t, block) {
+ //            hljs.highlightBlock(block);
+
+ //        });
+
+	//Calls the tocify method on your HTML div.
+	var MQL = 884;
+	if ($(window).width() > MQL) {
+		var catalog = $('#toc-wrp');
+	    var headerHeight = $('#header').height();
+	    $(window).on('scroll', {
+	            previousTop: 0
+	        },
+	        function () {
+	    	    var $header = $('#header');
+	            var currentTop = $(window).scrollTop();
+	            //check if user is scrolling up
+	            if (currentTop < this.previousTop) {
+	                //if scrolling up...
+	                console.log("scrolling up...")
+	                // if (currentTop > 0 && $header.hasClass('fixed')) {
+	                //     $header.addClass('visible');
+	                // } else {
+	                //     $header.removeClass('visible fixed');
+	                // }
+	                catalog.css("top", "50px");
+	            } else if (currentTop > this.previousTop) {
+	                //if scrolling down...
+	                console.log("scrolling down...")
+	                // $header.removeClass('visible');
+	                // if (currentTop > headerHeight && !$header.hasClass('fixed')) $header.addClass('fixed');
+	                // catalog.css("top", "0");
+	            }
+	            this.previousTop = currentTop;
+	        }
+	    );
+	}
+});
+	
+
+</script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head data-th-include="content/fragment/layout :: head">
+</head>
+<body id="detail" class="detail pushable">
+<!-- personel css/js start -->
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.tocify.css" />
+<link rel="stylesheet" type="text/css" href="/assets/css/simditor.css" />
+<!--<link type="text/css" rel="stylesheet" href="http://note.tung7.com/content/highlight/styles/xcode.css">-->
+<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" />
+<script type="text/javascript" src="/assets/js/jquery-ui-1.9.1.custom.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.tocify.min.js"></script>
+<script type="text/javascript" src="/assets/js/marked.min.js"></script>
+<!--<script type="text/javascript" src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>-->
+<script type="text/javascript" src="http://note.tung7.com/content/highlight/highlight.pack.js"></script>
+<style>
+/* detail start */
+.detail .article .article-header {
+    padding-bottom: 2em;
+    border-bottom: 5px solid #D2EADD;
+    margin-bottom: 2em;
+}
+.detail .article .article-title {
+    font-size: 3em;
+    display: inline-block;
+
+}
+.detail .article .article-content img{
+    display: block;
+    max-width: 100%;
+}
+/* detail end */
+
+/* toc start */
+.detail  .toc-wrp #index {
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -ms-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    width: 16em;
+    padding: 60px 0 0 0;
+}
+.detail .index .title {
+    color: #444;
+    font-size: 1.4em;
+    line-height: 1.6em;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
+}
+.detail .tocify-item.tocify-focus{
+    background-color:#E6E6E6;
+    border-radius:2px;
+}
+.detail .tocify-item.tocify-focus a {
+    color:#3A1E8C;
+}
+/* toc end */
+</style>
+<!-- personel css/js end -->
+
+
+<div class="ui vertical inverted sidebar menu left" id="m-nav"></div>
+
+<div class="pusher">
+    <div class="ui fixed inverted mob-header menu" id ="mob-header" data-th-include="content/fragment/layout :: mob-header"></div>
+    <div class="full height">
+        <div class="nav">
+            <div class="ui vertical inverted sticky menu" id="nav"></div>
+        </div>
+        <!-- main header start -->
+        <div class="ui menu borderless fixed" id="header" data-th-include="content/fragment/layout :: header">
+        </div>
+        <!-- main header end -->
+        <!-- main start -->
+        <div class="main ui container">
+            <!-- main article_index tart -->
+            <div class="ui dividing right rail toc-wrp">
+                <div class="ui sticky fixed top" id="index">
+                    <div id="toc" class=""></div>
+                </div>
+            </div>
+            <!-- main article_index end -->
+            <!-- main article_content start -->
+            <article class="article simditor" data-th-fragment="content">
+                <div class="article-header">
+                    <h1 class="article-title">Java NIO</h1>
+                </div>
+                <textarea id="markdown-area" style="display:none">
+# 概述
+Java NIO能够替代标准Java IO API，有着与标准IO不同的工作方式（非阻塞 Non-blocking）。
+
+标准IO是基于字节流和字符流进行操作的，而NIO则是基于Channel和Buffer进行操作的。
+
+NIO是非阻塞的，当线程从Channel中去读数据到Buffer的时候，线程还是能够处理其他事情，等到数据被写入到Buffer的时候，线程依然能够继续处理这些数据。Buffer写入Channel的时候也是一样。
+
+
+NIO通过Selector监听多个Channel的事件（连接的打开，数据的到达等）。
+
+
+| 啊bbc  |   value   | 啊bbc |   value   |
+| ------ | --------- | ----- | ---------------------- |
+| asda   | asdaa     | 12312 | 7892131778921317789213 |
+| 12312  | 789213172 | asda  | asdaa     |
+| asda   | asdaa     | 12312 | 789213172 |
+| asda   | asdaa     | 12312 | 789213172 |
+
+> aadf
+> asdf
+> block
+> asd
+
+# 核心部分
+1. Channels
+2. Buffers
+3. Selectors
+
+## Channel与Buffer
+Channel有点像流，可以与Buffer交换数据。
+
+
+```seq
+Channel->Buffer: 写入Buffer
+
+Buffer->Channel: 读取Buffer
+```
+
+
+常用的Channel实现类有：
+* FileChannel
+* DatagramChannel
+* SocketChannel
+* ServerSocketChannel
+
+这些Channel都对应着传统IO
+FileChannel对应文件IO。
+
+DatagramChannel对应UDP的IO，可以通过UDP读写网络数据。
+
+SocketChannel与ServerSocketChannel对应TCP的IO，SocketChannel能够通过TCP读写网络数据，而ServerSocketChannel，如同ServerSocket那样可以监听新进来的TCP连接，每新进来一个连接都会创建一个SocketChannel,这和ServerSocket与Socket很像。
+
+
+
+关键的Buffer实现类有：
+* ByteBuffer
+* CharBuffer
+* DoubleBuffer
+* FloatBuffer
+* IntBuffer
+* LongBuffer
+* ShortBuffer
+* MappedByteBuffer
+
+同样的，这都对应着基本类型的封装。其中MappedByteBuffer表示内存映射文件。
+
+## Selector
+Selector允许单线程监听多个Channel。如果程序打开了很多个Channel,同时各个Channel的流量很低，使用Selector就会很方便。
+
+![image_1bcfrlno21n501pil1ed5q5i1mse9.png-20.7kB][1]
+
+
+使用Selector的简单流程
+1. 向Selector注册Channel
+2. 调用select()方法，阻塞等待Channel的事件就绪
+3. select()方法返回
+
+
+
+# Channel
+类似于流，但是又有不同：
+* Channel的操作是双向的，既可以读取数据，又可以写入数据，而流则是单向的。
+* Channel可以异步读写
+* Channel的数据只能通过Buffer操作
+
+```java
+RandomAccessFile aFile = new RandomAccessFile("data/nio-data.txt", "rw");
+FileChannel inChannel = aFile.getChannel();
+//分配
+ByteBuffer buf = ByteBuffer.allocate(48);
+int bytesRead = 0；
+while (（bytesRead = inChannel.read(buf)) != -1) {
+    System.out.println("Read " + bytesRead);
+    buf.flip();
+    while(buf.hasRemaining()){
+        System.out.print((char) buf.get());
+    }
+    buf.clear()；
+}
+aFile.close();
+```
+
+# Buffer
+Buffer本质上就是一块可写可读的内存，NIO就是把这块内存封装成Buffer对象，并提供一组便捷的API。
+
+## Buffer的基本使用流程
+
+向buffer写入数据时，buffer会记录下写了多少数据。当需要读取数据的时候，要使用flip()方法，将buffer从写模式切换到读模式。在读模式下，可以读取之前写入的所有数据。
+
+在读取玩所有所有数据之后，需要清空缓存区，使其进入写模式。
+
+清空缓冲去有两种方法：
+1. clear()方法，会清空整个缓冲区
+2. compact()方法，只会清除已经读过的数据。
+
+compact清除已经读过的数据之后，未读过的数据将会移动到缓存区头部，之后写入的数据将会继续在之前未读取的数据之后写入。
+
+```flow
+st=>start: Start
+op1=>operation: 将数据写入Buffer实例
+op2=>operation: 调用Buffer实例的flip()方法，切换到读模式。
+op3=>operation: 从Buffer实例中读取数据
+op=>operation: 调用clear()方法或者compact()方法
+e=>end: end
+
+st->op1->op2->op3->e
+```
+
+
+
+基本演示代码如下：
+
+```java
+RandomAccessFile aFile = new RandomAccessFile("data/nio-data.txt", "rw");
+FileChannel inChannel = aFile.getChannel();
+//创建一个容量为48字节的字节缓存区
+ByteBuffer buf = ByteBuffer.allocate(48);
+int bytesRead = inChannel.read(buf); //将数据读取到缓冲区
+while (bytesRead != -1) {
+    buf.flip();  //转换为读模式
+    while(buf.hasRemaining()){ //每次读取一字节
+        System.out.print((char) buf.get());
+    }
+    buf.clear(); //清空缓冲区，进入写模式
+    bytesRead = inChannel.read(buf); // 继续将数据读取到缓冲区
+}
+aFile.close();
+```
+
+## Buffer的属性
+Buffer有三个重要是属性
+* capcacity
+* position
+* limit
+
+capacity指的是缓冲区的所能容纳的数据单元个数, ByteBuffer表示能写capacity个byte，LongBuffer表示能写capacity个long。
+
+position和limit取决于缓冲区是处于读模式还是写模式，如下图。
+
+![image_1bcg0m5vojsk1rna6ul8u3cf1g.png-17.9kB][2]
+
+
+在写模式中，position表示能写入下一个buffer单元的偏移量，limit实际上就是capacity了，表示能够写入的单元数量。可以注意到，position就是用来记录缓冲区已经写入的数据的数量的。
+
+在切换到读模式后，position就被重置成0，指向缓冲区的头部，limit就表示能够读取到的单元数量，也就是写模式下的position的值。
+
+
+## Buffer的读写
+### Buffer的读
+从Buffer读取数据有两种方式，
+1. 将Buffer的数据读取至Channel中
+2. 通过Buffer的get方法读取
+
+```java
+int s = inChannel.write(buf);
+byte aByte = buf.get();
+```
+get方法有很多overloading, 可以指定读取position，直接读取到数组等。
+
+### Buffer的写
+写入Buffer同样有两种方式
+1. 从Channel中获取数据写入。
+2. 通过Buffer的put方法写入。
+
+```java
+int r = inChannel.read(buf);
+byte aByte = buf.put(127);
+```
+put方法中，也可以指定position写入，可以写入一个数组等。
+
+
+### flip()
+flip方法会将buffer从写模式转换到读模式。position将被重置为0，limit将移动到原来写模式的position的偏移位置。
+
+### rewind()
+在读模式中，rewind()可以将position重新置为0，limit不变。 这表明，我们可以再次读一遍已经读过的内容。
+
+### clear()与compact()
+在读模式中，一旦我们想进入写模式，可以执行clear方法或者compact方法。
+其中clear()会将position置为0，limit值为capacity。注意的是clear方法，并不是把buffer清空了，只是设置了position和limit，看起来像清空了而已。
+compact()会将未读取的数据拷贝到buffer起始处，然后position置于这些未读取数据的最后一个之后，limit会被设置为capacity。也就是说，compact()方法会‘保留’未读的数据。
+
+### mark()与reset()
+mark()用来标记position的位置，然后在执行一些操作后，能够通过reset()方法来使得position回到标记的位置。
+```java
+buffer.mark(); // mark the position
+// do something may move the position
+buffer.reset(); // set position back to mark
+```
+
+### equals()与compareTo()
+equals()用于检查两个Buffer是否相等，当`都`满足以下条件时，表示Buffer相等。
+1. Buffer的类型相同（byte,char,long）
+2. 剩余单元个数相等
+3. 剩余单元都相等
+
+可以看到，equals只是比较剩余的单元。
+
+compareTo()方法用于判断Buffer的大小。满足下面条件`之一`时，认为一个Buffer小于另外一个Buffer。
+1. 第一个不相等的单元小于另一个Buffer中对应的单元。
+2. 所有单元都相等，但是第一个Buffer的单元数量小于第二个Buffer的单元数量。
+
+
+
+
+# Scatter和Gather
+Scatter/Gather用于描述
+
+
+》》 http://ifeve.com/buffers/
+http://tutorials.jenkov.com/java-nio/scatter-gather.html
+
+
+[1]: http://static.zybuluo.com/tung7/nedu0dg5cockda1h1xd6k9bt/image_1bcfrlno21n501pil1ed5q5i1mse9.png
+[2]: http://static.zybuluo.com/tung7/6vmux0kzc9g4kepj3xlwt76q/image_1bcg0m5vojsk1rna6ul8u3cf1g.png
+                </textarea>
+                <div id="article-area" class="article-content simditor-body">
+
+
+                </div>
+            </article>
+            <!-- main article_content end -->
+        </div>
+        <!-- main end -->
+    </div>
+    <div class="ui black inverted vertical footer segment" data-th-include="content/fragment/layout :: footer"></div>
+
+    <div class="ui long modal add-category-modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Profile Picture
+        </div>
+        <div class="content">
+            <div class="description">
+                <div class="ui equal width form">
+                    <div class="fields">
+                        <div class="field">
+                            <label>Username</label>
+                            <input type="text" placeholder="Username">
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>First name</label>
+                            <input type="text" placeholder="First Name">
+                        </div>
+                        <div class="field">
+                            <label>Middle name</label>
+                            <input type="text" placeholder="Middle Name">
+                        </div>
+                        <div class="field">
+                            <label>Last name</label>
+                            <input type="text" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>First name</label>
+                            <input type="text" placeholder="First Name">
+                        </div>
+                        <div class="field">
+                            <label>Middle name</label>
+                            <input type="text" placeholder="Middle Name">
+                        </div>
+                        <div class="field">
+                            <label>Last name</label>
+                            <input type="text" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>First name</label>
+                            <input type="text" placeholder="First Name">
+                        </div>
+                        <div class="field">
+                            <label>Middle name</label>
+                            <input type="text" placeholder="Middle Name">
+                        </div>
+                        <div class="field">
+                            <label>Last name</label>
+                            <input type="text" placeholder="Last Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Cancel
+            </div>
+            <div class="ui positive right labeled icon button">
+                OK
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script data-th-inline="JavaScript">
+    hljs.initHighlightingOnLoad();
+    window.navRoot = /*[[${navRoot}]]*/ null;
+    $(function(){
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            gfm: true,
+            tables: true,
+            breaks: true,
+            pedantic: false,
+            sanitize: true,
+            smartLists: true,
+            smartypants: true,
+            highlight: function (code) {
+                return hljs.highlightAuto(code).value;
+            }
+        });
+        var markdownDoc = $("#markdown-area").val();
+        $("#article-area").html(marked(markdownDoc));
+        $("#toc").tocify({
+            context:".article-content",selectors:"h1,h2,h3,h4,h5",theme:"none",extendPage:false,scrollTo:60
+        });
+
+//            $('.ui.modal.add-category-modal').modal('setting', {
+//                transition : 'fade up',
+//                closable : false,
+//                onDeny : function(){
+//                    window.alert('onDeny!');
+//                },
+//                onApprove : function() {
+//                    window.alert('onApprove!');
+//                }
+//            }).modal('show');
+
+    })
+</script>
+<script src="/assets/js/layout.js"></script>
+</body>
+</html>

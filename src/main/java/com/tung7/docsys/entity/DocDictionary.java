@@ -1,8 +1,6 @@
 package com.tung7.docsys.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * TODO Fill The Description!
@@ -26,6 +24,10 @@ public class DocDictionary extends IdEntity {
      */
     @Column(name = "dvalue", length = 1000)
     private String value;
+
+    @ManyToOne
+    @JoinColumn(name = "pid")
+    private DocDictionary parent;
 
     public String getKey() {
         return key;

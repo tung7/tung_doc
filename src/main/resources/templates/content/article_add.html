@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-include="content/fragment/layout :: head">
+</head>
+<body class="detail pushable">
+<!-- personel css/js start -->
+<link rel="stylesheet" href="/admin/assets/editormd/css/editormd.min.css" />
+<link rel="stylesheet" href="/admin/assets/editormd/css/monokai.css" />
+<link rel="stylesheet" href="/admin/assets/editormd/css/style.css" />
+<script type="text/javascript" src="/assets/js/marked.min.js"></script>
+<script type="text/javascript" src="/admin/assets/editormd/editormd.min.js"></script>
+<style>
+    .main.ui.container {
+        margin:auto !important;
+        max-width: 90% !important;
+    }
+    #header.ui.menu.fixed {
+        left: 0;
+    }
+</style>
+<!-- personel css/js end -->
+
+<div class="pusher">
+    <div class="ui fixed inverted mob-header menu" id ="mob-header" data-th-include="content/fragment/layout :: mob-header"></div>
+    <div class="full height">
+        <!-- main header start -->
+        <div class="ui menu borderless fixed" id="header" data-th-include="content/fragment/layout :: header">
+        </div>
+        <!-- main header end -->
+        <!-- main start -->
+        <div class="main ui container">
+            <!-- main article_content start -->
+            <article class="article simditor ui form" data-th-fragment="content">
+                <div class="two fields">
+                    <div class="field">
+                        <label>文章标题</label>
+                        <input type="text" name="title" placeholder="Article Title">
+                    </div>
+                    <div class="field">
+                        <label>文章类别</label>
+                        <select  class="ui search  dropdown" name="category">
+                            <option value="">State</option>
+                            <option value="LA">端口映射</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">-- Alaska</option>
+                            <option value="AZ">-- Arizona</option>
+                            <option value="AR">网络配置</option>
+                            <option value="CA">-- California</option>
+                            <option value="CO">-- -- Colorado</option>
+                            <option value="CT">-- Connecticut</option>
+                            <option value="DE">连接容器</option>
+                            <option value="DC">-- District Of Columbia</option>
+                            <option value="FL">-- Florida</option>
+                            <option value="GA">-- -- Georgia</option>
+                            <option value="HI">-- -- Hawaii</option>
+                            <option value="ID">-- Idaho</option>
+                            <option value="IL">-- Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">-- Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>文章类别</label>
+                    <div class="ui dropdown button category-select">
+                        <span class="text">请选择文章类别目录</span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">
+                                <span class="text">Category 1</span>
+                            </div>
+                            <div class="item">
+                                <i class="dropdown icon"></i>
+                                <span class="text">Category 2</span>
+                                <div class="menu">
+                                    <div class="item">Item 2A</div>
+                                    <div class="item">Item 2B</div>
+                                    <div class="item">Item 2C</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <i class="dropdown icon"></i>
+                                <span class="text">Category 3</span>
+                                <div class="menu">
+                                    <div class="item">Item 3A</div>
+                                    <div class="item">Item 3B</div>
+                                    <div class="item">Item 3C</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div id="article-area" class="article-content">
+                    <div id="editormd" class="editormd" style="margin-top:40px">
+                        <textarea style="display:none;" class="editormd-markdown-textarea" name="editormd-markdown-doc"></textarea>
+                        <textarea style="display:none;" class="editormd-html-textarea" name="editormd-html-code"></textarea>
+                    </div>
+                    <button id="sub">submit</button>
+                </div>
+                </div>
+            </article>
+            <!-- main article_content end -->
+        </div>
+        <!-- main end -->
+    </div>
+    <div class="ui black inverted vertical footer segment" data-th-include="content/fragment/layout :: footer">
+    </div>
+</div>
+
+<script data-th-inline="JavaScript">
+window.navRoot = /*[[${navRoot}]]*/ null;
+$('select.dropdown').dropdown();
+$('.category-select.dropdown').dropdown({
+    allowCategorySelection: true,duration:0
+});
+
+window.editor = editormd("editormd", {
+    path : "/admin/assets/editormd/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
+    height: "690px",
+    width: "100%",
+//         theme: "dark",
+    saveHTMLToTextarea : true,
+    editorTheme: "monokai",
+    previewTheme: "dark",
+    tocm: true,
+    tocContainer: "",
+    tocDropdown: false,
+    imageUpload    : true,
+    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+    imageUploadURL : "./php/upload.php",
+    toolbarIcons : function() {
+        return ["undo", "redo", "|", "bold", "del", "italic", "quote", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image", "code", "preformatted-text", "table", "|", "goto-line", "watch", "preview", "fullscreen", "search"]
+    },
+    flowChart            : true,          // flowChart.js only support IE9+
+    sequenceDiagram      : true,
+    taskList             : true,
+    lineNumbers          : false
+});
+</script>
+<script src="/assets/js/layout.js"></script>
+</body>
+</html>

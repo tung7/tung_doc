@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @Configuration
 //@EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
-//@EnableJpaRepositories(basePackages = "com.tung7.docsys.repositories") // basepackage for repository
+//@EnableJpaRepositories(basePackages = "com.tung7.docsys.repositories") // base package for repository
 //@PropertySource("classpath:application.properties")
 public class JpaConfiguration {
 
