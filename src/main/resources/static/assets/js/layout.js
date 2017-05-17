@@ -1,9 +1,14 @@
 $(function() {
-    generateNav("#nav", window.navRoot);
-    generateNav("#m-nav", window.navRoot);
+    generateNav2("#nav", window.navRoot);
+    generateNav2("#m-nav", window.navRoot);
     activeNav("#nav");
     activeNav("#m-nav");
     console.log(window.navRoot);
+
+    $(".accordion li a").on("click",function() {
+        var $this = $(this);
+        expandNav($(this));
+    });
 
     var $mobMenu                = $('#m-nav'),
         $toc                 = $("#toc"),
@@ -15,10 +20,19 @@ $(function() {
         silent: true,
         context: $fullHeightContainer
     });
+
+
+
     // launch buttons
     $mobMenu.sidebar('attach events', '.launch.button, .view-ui, .launch.item');
 
-
+    function expandNav($this) {
+        var $targetContent = $($this.parent().find(" > ul"));
+        $this.toggleClass("expaned");
+        $this.find("i.icon.angle").toggleClass("right");
+        $this.find("i.icon.angle").toggleClass("down");
+        $targetContent.slideToggle("fast");
+    }
 
     function activeNav(id) {
         var path = location.pathname;
@@ -28,6 +42,15 @@ $(function() {
             console.log($(this).attr("href"));
             if ($(this).attr("href") === path) {
                 $(this).addClass("active");
+                var parentULs = $(this).parents('ul.sub');
+                var parentLi = $(this).parent();
+                var parentLis = parentLi.parents('li');
+                parentLis.each(function(){
+                    // $(this).trigger('click');
+                    var $this = $(this).find('>a');
+                    expandNav($this);
+                });
+
             } else {
                 $(this).removeClass("active");
             }
@@ -35,33 +58,33 @@ $(function() {
 
     }
 
-    function generateNav(id, root) {
+
+
+    function generateNav2(id, root) {
         if (root == null) {
             return;
         }
-        var rootItem = $("<div>").addClass("item")
+        var rootItem = $("<li>")
             .append(
-                $("<a>").addClass("ui logo icon image").attr("href", "/")
-                    .append(
-                        $("<img>").attr("src", "/assets/images/z.jpg")
-                    )
-            )
-            .append(
-                $("<a>").attr("href", "/")
-                    .append(
-                        $("<b>").text("Tung Docs")
-                    )
+                $("<a>").addClass("title").attr("href", "/").append(
+                    $("<span>").addClass("ui logo icon image")
+                        .append(
+                            $("<img>").attr("src", "/assets/images/z.jpg")
+                        )
+                ).append(
+                    $("<b>").text("Tung Docs")
+                )
             );
 
-        var rootCategory = $("<a>").addClass("item").attr("href", root.href)
+        var rootCategory = $("<li>").append($("<a>").addClass("title").attr("href", '/category/' + root.id)
             .append(
                 $("<b>").text(root.name)
-            );
-
-        $(id).append(rootItem).append(rootCategory).append(generateSubNavs(root.subNavs, "1."));
+            ));
+        var wrp = $(id).append(rootItem).append(rootCategory).append(generateSubNavs2(root.subNavs, "1."));
+        // $(id).append(wrp);
     }
 
-    function generateSubNavs(nodeList, taxis) {
+    function generateSubNavs2(nodeList, taxis) {
         var result = [];
         var reg = /(\d+)\.$/;
         taxis=taxis+"";
@@ -69,10 +92,10 @@ $(function() {
         for (var k in nodeList) {
             var node = nodeList[k];
             // if (node.subNavs.length == 0) {
-            if (node.href !== null) {
-                result.push(generateNavAItem(node, taxis));
+            if (node.type == 'LINK') {
+                result.push(generateNavAItem2(node, taxis));
             } else {
-                result.push(generateNavGroupItem(node, taxis, taxis));
+                result.push(generateNavGroupItem2(node, taxis, taxis));
             }
 
             var matchs = taxis.match(reg);
@@ -82,25 +105,25 @@ $(function() {
         return result;
     }
 
-    function generateNavAItem(node, taxis) {
-        return $("<a>").attr("href", node.href).addClass("item").attr("data-id", node.id).html(
+    function generateNavAItem2(node, taxis) {
+        var li = $("<li>").append($("<a>").attr("href", '/category/' + navRoot.id + '/article/' + node.id).addClass("title").attr("data-id", node.id).html(
             taxis + " " + node.name
-            // "<i class='file text outline icon'></i>" + taxis + " " + node.name
-        );
+        ));
+        return li;
+
     }
 
-    function generateNavGroupItem(node, taxis) {
-        return $("<div>").addClass("item").attr("data-id", node.id).append(
-            $("<div>").addClass("header").append($("<b>").html(
-                    taxis + " " + node.name
-                // "<i class='folder icon'></i>" + taxis + " " + node.name
-                )
-            )
-        ).append(
-            $('<div class="menu">').addClass("menu").append(
-                generateSubNavs(node.subNavs, taxis+"1.")
+    function generateNavGroupItem2(node, taxis) {
+        var li = $("<li>").append($("<a>").addClass("title").attr("data-id", node.id).html(
+            "<b>" + taxis + " " + node.name + '</b><i class="angle right icon"></i>'
+        )).append(
+            $("<ul>").addClass("sub").append(
+                generateSubNavs2(node.subNavs, taxis+"1.")
             )
         );
+
+        return li;
     }
+
 });
 

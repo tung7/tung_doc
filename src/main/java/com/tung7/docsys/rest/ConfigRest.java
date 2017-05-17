@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @update
  */
 @RestController
-@RequestMapping("/config")
+@RequestMapping("/api/config")
 public class ConfigRest {
     private static final Logger logger = LoggerFactory.getLogger(ConfigRest.class);
 

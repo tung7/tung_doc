@@ -24,8 +24,7 @@ public abstract class IdEntity implements java.io.Serializable{
         return id;
     }
 
-    public IdEntity setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 }

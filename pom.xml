@@ -156,7 +156,6 @@
         <!--<artifactId>logback-classic</artifactId>-->
         <!--<version>${logbackVersion}</version>-->
         <!--</dependency>-->
-
     </dependencies>
 
     <build>
@@ -176,9 +175,9 @@
                 <version>${spring.boot.version}</version>
                 <dependencies>
                     <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>springloaded</artifactId>
-                    <version>1.2.6.RELEASE</version>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.6.RELEASE</version>
                     </dependency>
                 </dependencies>
                 <executions>

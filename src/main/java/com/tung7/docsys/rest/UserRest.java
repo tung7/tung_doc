@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @update
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserRest {
 
     @Autowired

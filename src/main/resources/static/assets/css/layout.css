@@ -51,7 +51,7 @@ code, pre {
 .ui.sidebar.menu .item {
     will-change: transform;
 }
-.ui.sidebar.menu .logo.image, .ui.sticky.menu .logo.image {
+.ui.sidebar.menu .logo.image, .ui.menu .logo.image {
     width: 35px;
     margin-right: 1em;
 }
@@ -127,7 +127,10 @@ code, pre {
 #mob-header.menu.fixed .search .icon {
     opacity: 0.9;
 }
-#header .ui.dropdown .menu>.item .dropdown.icon, #mob-header .ui.dropdown .menu>.item .dropdown.icon{
+/*#header*/
+.ui.dropdown .menu>.item .dropdown.icon,
+    /*#mob-header*/
+.ui.dropdown .menu>.item .dropdown.icon{
     margin-right: -.5em;
 }
 /****************************************
@@ -141,10 +144,11 @@ code, pre {
 /* Defaults */
 .main.container {
     margin-left: 3em !important;
-    margin-right: 330px !important;
+    margin-right: 300px !important;
     width: 100% !important;
-    max-width: 1160px !important;
+    max-width: 1260px !important;
     padding: 2em 0 7em;
+    overflow: hidden;
 }
 .main.container:after {
     content: '';
@@ -154,7 +158,8 @@ code, pre {
     visibility: hidden;
 }
 .main.ui.container article.article {
-    padding-top:50px;
+    padding: 50px 2.5rem 0 0;
+    border-right: 1px solid rgba(34,36,38,.15);
 }
 .main.container > h2 {
     position: relative;
@@ -169,7 +174,8 @@ code, pre {
 }
 /* Rail Default */
 .main.container > .right.rail {
-    width: 319px;
+    width: 300px;
+    margin: 0;
 }
 .main.container .highlight {
     -moz-animation: highlight 2s ease-out;
@@ -215,7 +221,7 @@ code, pre {
     -ms-flex-direction: row;
     flex-direction: row;
 }
-.pusher > .full.height > .nav {
+.pusher > .full.height > .nav-wrp {
     position: relative;
     z-index: 1;
     background-color: #1b1c1d;
@@ -225,7 +231,7 @@ code, pre {
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
 }
-.pusher > .full.height > .nav .ui.menu {
+.pusher > .full.height > .nav-wrp .ui.menu {
     border-radius: 0;
     border-width: 0 1px 0 0;
     box-shadow: none;
@@ -249,13 +255,14 @@ code, pre {
 @media only screen and (max-width: 1272px) {
     /* Resize Main Container */
     .main.container {
-        margin-right: 318px !important;
+        margin-right: 285px !important;
     }
+
     #header.ui.menu.fixed {
         left: 200px;
     }
     /* Resize nav  */
-    .pusher > .full.height > .nav {
+    .pusher > .full.height > .nav-wrp {
         width: 200px;
     }
     /* Resize Rail */
@@ -279,7 +286,7 @@ code, pre {
 /* Remove Fixed Sidebar /  Show Top Bar */
 @media only screen and (max-width: 1145px) {
     /* Hide Fixed Sidebar */
-    .pusher > .full.height > .nav {
+    .pusher > .full.height > .nav-wrp {
         display: none;
     }
     #header.ui.menu.fixed {
@@ -324,6 +331,10 @@ code, pre {
         display: none;
     }
 
+    .main.ui.container article.article {
+        border-right: none;
+        padding-right: 0;
+    }
     /* Fluid Containers */
     .main.container,
     .fixed.menu > .container {

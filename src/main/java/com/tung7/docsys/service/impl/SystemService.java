@@ -1,9 +1,6 @@
 package com.tung7.docsys.service.impl;
 
-import com.tung7.docsys.entity.DocConfig;
-import com.tung7.docsys.entity.DocPermission;
-import com.tung7.docsys.entity.DocRole;
-import com.tung7.docsys.entity.DocUser;
+import com.tung7.docsys.entity.*;
 import com.tung7.docsys.service.inf.*;
 import com.tung7.docsys.support.constant.ConfigKeyConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,8 @@ public class SystemService implements ISystemService{
     IUserService userService;
     @Autowired
     IConfigService configService;
+    @Autowired
+    IGroupService groupService;
 
     @Override
     public void initDB() {
@@ -60,6 +59,12 @@ public class SystemService implements ISystemService{
                 .setNickname("admin")
                 .setRoleSet(roleSet);
         userService.save(docUser);
+
+         /* 插入类别未分组  */
+        DocGroup docGroup = new DocGroup()
+                .setName("未分组")
+                .setTaxis(0L);
+        groupService.save(docGroup);
 
 
          /* 插入基础配置 */

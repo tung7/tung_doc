@@ -15,25 +15,11 @@ import java.util.Set;
  * @update
  */
 @Entity
-@Table(name = "tdoc_category")
-public class DocCategory extends IdEntity {
-    /**
-     * 父级类别
-     */
-    @ManyToOne
-    @JoinColumn(name = "pid")
-    private DocCategory parent;
-
-    @Column(name = "depth", length = 2)
-    private int depth;
+@DiscriminatorValue("CATEGORY")
+public class DocCategory extends DocResource {
 
     /**
-     * 类别的名称
-     */
-    @Column(name = "cname")
-    private String name;
-    /**
-     * 类别的描述简介
+     * 类别的描述简介, only for 顶级类别
      */
     @Column(name = "description", length = 1000)
     private String description;
@@ -45,47 +31,18 @@ public class DocCategory extends IdEntity {
     private Long articleNum;
 
     /**
-     * 类别下的文章
+     * 类别下的文章集合 不包含子类别的文章
      */
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
+    @OneToMany
     private Set<DocArticle> articlesSet = new HashSet<>();
 
-    public int getDepth() {
-        return depth;
-    }
-
-    public DocCategory setDepth(int depth) {
-        this.depth = depth;
-        return this;
-    }
-
-    public Set<DocArticle> getArticlesSet() {
-        return articlesSet;
-    }
-
-    public DocCategory setArticlesSet(Set<DocArticle> articlesSet) {
-        this.articlesSet = articlesSet;
-        return this;
-    }
-
-    public DocCategory getParent() {
-        return parent;
-    }
-
-    public DocCategory setParent(DocCategory parent) {
-        this.parent = parent;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public DocCategory setName(String name) {
-        this.name = name;
-        return this;
-    }
+    /**
+     * 仅用于top类别。用于标志所属分组
+     */
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    @JsonIgnore
+    private DocGroup group;
 
     public String getDescription() {
         return description;
@@ -102,6 +59,24 @@ public class DocCategory extends IdEntity {
 
     public DocCategory setArticleNum(Long articleNum) {
         this.articleNum = articleNum;
+        return this;
+    }
+
+    public Set<DocArticle> getArticlesSet() {
+        return articlesSet;
+    }
+
+    public DocCategory setArticlesSet(Set<DocArticle> articlesSet) {
+        this.articlesSet = articlesSet;
+        return this;
+    }
+
+    public DocGroup getGroup() {
+        return group;
+    }
+
+    public DocCategory setGroup(DocGroup group) {
+        this.group = group;
         return this;
     }
 }

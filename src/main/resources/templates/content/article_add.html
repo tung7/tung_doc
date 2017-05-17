@@ -31,76 +31,76 @@
         <div class="main ui container">
             <!-- main article_content start -->
             <article class="article simditor ui form" data-th-fragment="content">
+                <input type="hidden" name="headVersion">
                 <div class="two fields">
                     <div class="field">
                         <label>文章标题</label>
                         <input type="text" name="title" placeholder="Article Title">
                     </div>
-                    <div class="field">
-                        <label>文章类别</label>
-                        <select  class="ui search  dropdown" name="category">
-                            <option value="">State</option>
-                            <option value="LA">端口映射</option>
-                            <option value="AL">Alabama</option>
-                            <option value="AK">-- Alaska</option>
-                            <option value="AZ">-- Arizona</option>
-                            <option value="AR">网络配置</option>
-                            <option value="CA">-- California</option>
-                            <option value="CO">-- -- Colorado</option>
-                            <option value="CT">-- Connecticut</option>
-                            <option value="DE">连接容器</option>
-                            <option value="DC">-- District Of Columbia</option>
-                            <option value="FL">-- Florida</option>
-                            <option value="GA">-- -- Georgia</option>
-                            <option value="HI">-- -- Hawaii</option>
-                            <option value="ID">-- Idaho</option>
-                            <option value="IL">-- Illinois</option>
-                            <option value="IN">Indiana</option>
-                            <option value="IA">-- Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                        </select>
-                    </div>
+
                 </div>
                 <div class="field">
                     <label>文章类别</label>
                     <div class="ui dropdown button category-select">
+                        <input type="hidden" name="pid" />
                         <span class="text">请选择文章类别目录</span>
                         <i class="dropdown icon"></i>
                         <div class="menu">
-                            <div class="item">
-                                <span class="text">Category 1</span>
-                            </div>
-                            <div class="item">
-                                <i class="dropdown icon"></i>
-                                <span class="text">Category 2</span>
-                                <div class="menu">
-                                    <div class="item">Item 2A</div>
-                                    <div class="item">Item 2B</div>
-                                    <div class="item">Item 2C</div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <i class="dropdown icon"></i>
-                                <span class="text">Category 3</span>
-                                <div class="menu">
-                                    <div class="item">Item 3A</div>
-                                    <div class="item">Item 3B</div>
-                                    <div class="item">Item 3C</div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <div id="article-area" class="article-content">
-                    <div id="editormd" class="editormd" style="margin-top:40px">
-                        <textarea style="display:none;" class="editormd-markdown-textarea" name="editormd-markdown-doc"></textarea>
-                        <textarea style="display:none;" class="editormd-html-textarea" name="editormd-html-code"></textarea>
+                        <div id="editormd" class="editormd" style="margin-top:40px">
+                            <textarea style="display:none;" class="editormd-markdown-textarea" name="editormd-markdown-doc"></textarea>
+                            <textarea style="display:none;" class="editormd-html-textarea" name="editormd-html-code"></textarea>
+                        </div>
                     </div>
-                    <button id="sub">submit</button>
                 </div>
+                <div class="ui segment new-version-segment">
+                    <!--<div class="field">-->
+                        <!--<div class="ui toggle checkbox new-version-checkbox">-->
+                            <!--<input type="checkbox" name="add-version" tabindex="0" class="hidden" checked="checked">-->
+                            <!--<label>作为新版本</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="field toggle-enable-field">
+                        <label>版本别名</label>
+                        <input type="text" name="version" />
+                    </div>
+                    <div class="field toggle-enable-field">
+                        <label>版本Comment</label>
+                        <textarea rows="2" name="comment"></textarea>
+                    </div>
+                </div>
+                <div class="ui segment">
+                    <div class="field ui accordion ">
+                        <div class="title" style="display: inline-block;"><i class="icon dropdown"></i>其他选项</div>
+                        <div class="content ui equal width form">
+                            <div class="fields">
+                                <div class="inline field">
+                                    <label >访问密码</label>
+                                    <input type="password" name="password" />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui segment">
+                                    <div class="ui toggle checkbox force-pass-checkbox">
+                                        <input type="checkbox" name="force-pass" tabindex="0" class="hidden">
+                                        <label>登录用户仍需要访问密码</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui error message">
+                    <div class="header">提交失败</div>
+                    <p></p>
+                </div>
+                <div class="ui segment">
+                    <div id="sub" class="ui button">submit</div>
                 </div>
             </article>
             <!-- main article_content end -->
@@ -112,11 +112,7 @@
 </div>
 
 <script data-th-inline="JavaScript">
-window.navRoot = /*[[${navRoot}]]*/ null;
-$('select.dropdown').dropdown();
-$('.category-select.dropdown').dropdown({
-    allowCategorySelection: true,duration:0
-});
+window.topCategory = /*[[${topCategory}]]*/ null;
 
 window.editor = editormd("editormd", {
     path : "/admin/assets/editormd/lib/", // Autoload modules mode, codemirror, marked... dependents libs path
@@ -140,6 +136,144 @@ window.editor = editormd("editormd", {
     taskList             : true,
     lineNumbers          : false
 });
+$(function () {
+    $('#sub').on('click', function(){
+        var $form = $('article.form');
+        var $title = $form.find('input[name=title]');
+        var $pid = $form.find('input[name=pid]');
+        var content = editor.getMarkdown();
+        var $version = $form.find('input[name=version]');
+        var $comment = $form.find('textarea[name=comment]');
+        var $password = $form.find('input[name=password]');
+        var $forcePass = $form.find('input[name=force-pass]');
+
+        if ($title.val() === '')        return showError($form, "标题不能为空！");
+        if ($pid.val() === '')          return showError($form, "类别不能为空！");
+        if ($version.val() === '')      return showError($form, "版本别名不能为空！");
+        if ($comment.val() === '')      return showError($form, "版本Comment不能为空！");
+        if ($forcePass.is(':checked') &&  $password.val() === '')      return showError($form, "密码不能为空！");
+
+        $.ajax({
+            url: '/api/admin/article/save',
+            type: 'POST',
+            data: {
+                'title': $title.val(),
+                'category.id': $pid.val(),
+                'content': content,
+                'versionAlias': $version.val(),
+                'versionComment': $comment.val(),
+                'password': $password.val(),
+                'forcePass': $forcePass.val()
+            },
+            success: function (d) {
+                if (!d.success) {
+                    alert('保存异常！');
+                } else {
+                    var redirectUrl = '/category/' + topCategory.id + '/article/' + d.data.id;
+                    window.location.href = redirectUrl;
+                }
+            },
+            error: function (e) {
+                
+            },
+            complete: function (d) {
+
+            }
+
+        });
+
+    });
+
+    $('select.dropdown').dropdown();
+    $('.ui.accordion').accordion();
+    $('.force-pass-checkbox').checkbox();
+    $('.new-version-checkbox').checkbox({
+        onChecked: function() {
+            $('.new-version-segment').find('.toggle-enable-field').removeClass('disabled');
+        },
+        onUnchecked: function() {
+            $('.new-version-segment').find('.toggle-enable-field').addClass('disabled');
+        }
+    });
+    $('.category-select.dropdown').dropdown({
+        allowCategorySelection: true,duration:0,onChange:function (val, text, $item) {
+            var id = $item.attr("data-id");
+            $('.category-select').find('input[name=pid]').val(id);
+        }
+    });
+
+    renderSubCategorySelect('.category-select', topCategory.id);
+    
+    function showError($form, msg) {
+        $form.addClass('error');
+        var $msg_p = $form.find('.ui.error.message > p');
+        $msg_p.text(msg);
+        setTimeout(function(){
+            clearError($form);
+        }, 1000);
+        return false;
+    }
+
+    function clearError($form) {
+        var $message = $form.find('.ui.error.message');
+        if (!$message.is(":animated")) {
+            $message.animate({opacity: 0}, function () {
+                $form.removeClass('error');
+                $message.find('> p').text('');
+                $message.removeAttr('style');
+            });
+        }
+    }
+
+    function renderSubCategorySelect(id, cid) {
+        var $topMenu = $(id).find('> .menu');
+        $.ajax({
+            type: 'GET',
+            url: '/api/admin/category/sub-cate/' + cid,
+            success: function (d) {
+                if (!d.success) {
+                    alert('获取子类别异常！');
+                } else {
+                    console.log(d)
+                    $topMenu.append(recursionRender(d.data));
+                }
+            },
+            complete: function (d) {
+
+            }
+        });
+    }
+    function recursionRender(root) {
+        var $item = $('<div>').addClass('item').attr('data-id', root.id);
+        if (root.type == 'FOLDER') {
+            $item.append(
+                $('<i class="dropdown icon">')
+            ).append(
+                $('<span>').text(root.name)
+            );
+
+            var subNavs = root.subNavs;
+            if (subNavs.length === 0) return $item;
+            var $subMenu = $('<div class="menu">').appendTo($item);
+            for (var k in subNavs) {
+                var item = subNavs[k];
+                $subMenu.append(recursionRender(item));
+            }
+        } else {
+            $item.text(root.name);
+        }
+        return $item;
+    }
+
+    function activeDimmer($dimmer) {
+        $dimmer.addClass('active');
+    }
+
+    function clearDimmer($dimmer) {
+        $dimmer.removeClass('active');
+    }
+})
+
 </script>
 <script src="/assets/js/layout.js"></script>
 </body>

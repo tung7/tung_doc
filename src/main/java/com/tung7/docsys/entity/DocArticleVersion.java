@@ -1,6 +1,7 @@
 package com.tung7.docsys.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,18 +23,12 @@ public class DocArticleVersion extends IdEntity {
      */
     @ManyToOne
     @JoinColumn(name = "article_id")
-    private  DocArticle article;
-
-    /**
-     * 该版本的文章标题
-     */
-    @Column(name = "title")
-    private String title;
+    private DocArticle article;
 
     /**
      * 该版本的文章内容
      */
-    @Column(name = "content", length = 5000)
+    @Column(name = "content", columnDefinition="text")
     private String content;
 
     /**
@@ -41,6 +36,12 @@ public class DocArticleVersion extends IdEntity {
      */
     @Column(name = "version", length = 127)
     private String version;
+
+    /**
+     * 版本描述
+     */
+    @Column(name = "comment", length = 1000)
+    private String comment;
 
 
     /**
@@ -60,15 +61,15 @@ public class DocArticleVersion extends IdEntity {
     private Date postTime;
 
 
-
-    public String getTitle() {
-        return title;
+    public String getComment() {
+        return comment;
     }
 
-    public DocArticleVersion setTitle(String title) {
-        this.title = title;
+    public DocArticleVersion setComment(String comment) {
+        this.comment = comment;
         return this;
     }
+
 
     public String getContent() {
         return content;

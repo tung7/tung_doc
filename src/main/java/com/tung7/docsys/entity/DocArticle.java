@@ -17,8 +17,8 @@ import java.util.Set;
  * @update
  */
 @Entity
-@Table(name = "tdoc_article")
-public class DocArticle extends IdEntity {
+@DiscriminatorValue("ARTICLE")
+public class DocArticle extends DocResource {
 
     /**
      * 匿名用户访问文章时的密码。
@@ -26,11 +26,8 @@ public class DocArticle extends IdEntity {
     @Column(name = "password")
     private String password;
 
-    /**
-     * 当前文章对应的head版本号
-     */
-    @Column(name = "head_version", length = 127)
-    private String headVersion;
+    @Column(name = "force_pass")
+    private Boolean forcePass;
 
     /**
      * 创建这篇文章的时间
@@ -47,6 +44,28 @@ public class DocArticle extends IdEntity {
     @JoinColumn(name = "creator_id")
     private DocUser creator;
 
+    @Column(name = "head_version")
+    private Long headVersion;
+
+
+    /**
+     * 文章下的版本
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "article")
+    @OrderBy("id DESC")
+    private Set<DocArticleVersion> articleVersionSet = new HashSet<>();
+
+
+    public Long getHeadVersion() {
+        return headVersion;
+    }
+
+    public DocArticle setHeadVersion(Long headVersion) {
+        this.headVersion = headVersion;
+        return this;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -56,27 +75,13 @@ public class DocArticle extends IdEntity {
         return this;
     }
 
-    /**
-     * 文章下的版本
-     */
-    @JsonIgnore()
-    @OneToMany(mappedBy = "article")
-    private Set<DocArticleVersion> articleVersionSet = new HashSet<>();
 
-    /**
-     * 该文章对应的类别
-     */
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private DocCategory category;
-
-
-    public String getHeadVersion() {
-        return headVersion;
+    public Boolean getForcePass() {
+        return forcePass;
     }
 
-    public DocArticle setHeadVersion(String headVersion) {
-        this.headVersion = headVersion;
+    public DocArticle setForcePass(Boolean forcePass) {
+        this.forcePass = forcePass;
         return this;
     }
 
@@ -98,14 +103,6 @@ public class DocArticle extends IdEntity {
         return this;
     }
 
-    public DocCategory getCategory() {
-        return category;
-    }
-
-    public DocArticle setCategory(DocCategory category) {
-        this.category = category;
-        return this;
-    }
 
     public Set<DocArticleVersion> getArticleVersionSet() {
         return articleVersionSet;

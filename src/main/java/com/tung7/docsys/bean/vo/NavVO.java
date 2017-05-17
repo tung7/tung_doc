@@ -15,6 +15,11 @@ import java.util.List;
  */
 public class NavVO {
 
+    public interface NavType {
+        String LINK = "LINK";
+        String FOLDER = "FOLDER";
+    }
+
     /**
      * id值
      */
@@ -33,10 +38,24 @@ public class NavVO {
     private String href;
 
     /**
+     * 类型, LINK | FOLDER
+     */
+    private String type;
+
+    /**
      * 非链接菜单对应的子菜单
      */
     private List<NavVO> subNavs = new ArrayList<>();
 
+
+    public String getType() {
+        return type;
+    }
+
+    public NavVO setType(String type) {
+        this.type = type;
+        return this;
+    }
 
     public Long getId() {
         return id;
